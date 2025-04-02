@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block main %}
+
+<div class="dropdown pb-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Select Category
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for category in defaultCategories%}
+        <a class="dropdown-item pointer" href="{{'/get-indices/' +category.link}}">{{category.alias}}</a>
+        {%endfor%}
+    </div>
+</div>
+
+{% if indicesDetails %}
+<h2 class="text-center">{{categoryTitle}}</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Scrip Flag</th>
+            <th scope="col">Index Name</th>
+            <th scope="col">Current Value</th>
+            <th scope="col">Changes</th>
+            <th scope="col">% Changes</th>
+            <th scope="col">Updated On</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for indexData in indicesDetails.indices %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{indexData.scripFlag}}</td>
+            <td>{{indexData.name}}</td>
+            <td>{{indexData.currentValue}}</td>
+            <td
+                class="{% if indexData.change|float > 0 %}text-success{% elif indexData.change|float < 0 %}text-danger{% endif %}">
+                {{indexData.change}}</td>
+            <td
+                class="{% if indexData.pChange|float > 0 %}text-success{% elif indexData.pChange|float < 0 %}text-danger{% endif %}">
+                {{indexData.pChange}}%</td>
+            <td>{{indicesDetails.updatedOn}}</td>
+        </tr>
+        <meta http-equiv="refresh" content="5">
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+{% endblock main %}

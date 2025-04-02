@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block main %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Scrip Code</th>
+            <th scope="col">Company Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for code in scripCodes.keys() %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{code}}</td>
+            <td>{{scripCodes[code]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock main %}

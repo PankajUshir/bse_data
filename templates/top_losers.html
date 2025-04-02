@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block main %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Scrip Codes</th>
+            <th scope="col">Security ID</th>
+            <th scope="col">Last Trading Price</th>
+            <th scope="col">Changes</th>
+            <th scope="col">% Changes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loser in topLosers %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{loser.scripCode}}</td>
+            <td>{{loser.securityID}}</td>
+            <td>{{loser.LTP}}</td>
+            <td
+                class="{% if loser.change|float > 0 %}text-success{% elif loser.change|float < 0 %}text-danger{% endif %}">
+                {{loser.change}}</td>
+            <td
+                class="{% if loser.pChange|float > 0 %}text-success{% elif loser.pChange|float < 0 %}text-danger{% endif %}">
+                {{loser.pChange}}%</td>
+        </tr>
+        <meta http-equiv="refresh" content="5">
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock main %}
